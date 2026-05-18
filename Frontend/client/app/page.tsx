@@ -3,6 +3,8 @@ import Navbar from "./Components/Navbar";
 import TopHeader from "./Components/TopHeader";
 import { TracingBeamDemo } from "./Components/feature";
 import Pricing from "./Components/pricing.tsx";
+import { BottomContainer } from "./Components/bottomHeader";
+import Footer from "./Components/Footer";
 
 export default function Home() {
   return (
@@ -24,6 +26,14 @@ export default function Home() {
 
         <div>
           <Pricing></Pricing>
+        </div>
+
+        <div>
+          <BottomContainer></BottomContainer>
+        </div>
+
+        <div>
+          <Footer></Footer>
         </div>
       </div>
       ;

@@ -15,7 +15,7 @@ export default function pricing() {
         </div>
 
         <div className="flex justify-around space-x-6">
-          <CardContainer className="inter-var">
+          <CardContainer className="inter-var cursor-pointer">
             <CardBody className="bg-gray-50 relative group/card  dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-auto sm:w-[30rem] h-auto rounded-xl p-6 border  ">
               <div className="flex w-full justify-center">
                 <h1 className="text-[25px] font-bold">Free Pack</h1>
@@ -49,7 +49,7 @@ export default function pricing() {
             </CardBody>
           </CardContainer>
 
-          <CardContainer className="inter-var">
+          <CardContainer className="inter-var  cursor-pointer">
             <CardBody className="bg-gray-50 relative group/card  dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-auto sm:w-[30rem] h-auto rounded-xl p-6 border  ">
               <div className="flex w-full justify-center">
                 <h1 className="text-[25px] font-bold">Monthly Pack</h1>
@@ -83,7 +83,7 @@ export default function pricing() {
             </CardBody>
           </CardContainer>
 
-          <CardContainer className="inter-var">
+          <CardContainer className="inter-var cursor-pointer">
             <CardBody className="bg-gray-50 relative group/card  dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-auto sm:w-[30rem] h-auto rounded-xl p-6 border  ">
               <div className="flex w-full justify-center">
                 <h1 className="text-[25px] font-bold">Yearly Pack</h1>

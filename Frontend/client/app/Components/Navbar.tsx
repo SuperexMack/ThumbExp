@@ -43,7 +43,7 @@ export default function Navbar() {
     <>
       <div className="w-full z-50 bg-black fixed top-0 h-[80px] border-b border-b-slate-200 flex items-center justify-center">
         <div className="absolute left-[10%] flex items-center justify-center space-x-2">
-          <Clapperboard className="h-[50px] w-[50px]"></Clapperboard>
+          <Clapperboard className="h-[50px] w-[50px] text-yellow-600"></Clapperboard>
           <Link href={"/"}>
             <h1 className="text-[40px] font-bold toptext">ThumbExp</h1>
           </Link>
