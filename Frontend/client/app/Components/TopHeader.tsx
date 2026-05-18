@@ -4,20 +4,22 @@ export default function TopHeader() {
   return (
     <>
       <div className="w-full mt-[12rem] h-auto flex flex-col space-y-5 items-center">
-        <div className="w-[60%] h-auto p-2">
+        <div className="bg-purple-300 w-[800px] h-[800px] rounded-full absolute z-[10] left-[25%] top-[10%] blur-3xl opacity-30"></div>
+
+        <div className="w-[60%] h-auto p-2 z-20">
           <h1 className="text-[50px] font-bold text-center">
             Generating Thumbnail Made it Easy and cost-efficient
           </h1>
         </div>
 
         <div className="w-[40%] h-auto p-2">
-          <p className="text-center font-medium ">
+          <p className="text-center z-[30] font-medium ">
             Create stunning YouTube thumbnails in seconds with AI. No designer
             needed, no time wasted just high-converting thumbnails instantly.
           </p>
         </div>
 
-        <div className="w-[50%] flex items-center justify-center h-auto p-2">
+        <div className="w-[50%] flex z-[30] items-center justify-center h-auto p-2">
           <div className="flex w-[50%] justify-around space-x-5">
             <button className="bg-white text-black font-bold p-2 w-full">
               Start Building
@@ -31,7 +33,7 @@ export default function TopHeader() {
 
         {/* Okhie so man here comes the Video section huuuh */}
 
-        <div className="flex w-[60%] mt-[3rem] items-center justify-center">
+        <div className="flex w-[60%] mt-[3rem] z-[30] items-center justify-center">
           <HeroVideoDialogDemoTopInBottomOut></HeroVideoDialogDemoTopInBottomOut>
         </div>
       </div>
