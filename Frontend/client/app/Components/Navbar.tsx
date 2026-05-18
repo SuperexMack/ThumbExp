@@ -41,7 +41,7 @@ export default function Navbar() {
 
   return (
     <>
-      <div className="w-full z-50 fixed top-0 h-[80px] border-b border-b-slate-200 flex items-center justify-center">
+      <div className="w-full z-50 bg-black fixed top-0 h-[80px] border-b border-b-slate-200 flex items-center justify-center">
         <div className="absolute left-[10%] flex items-center justify-center space-x-2">
           <Clapperboard className="h-[50px] w-[50px]"></Clapperboard>
           <Link href={"/"}>
