@@ -13,7 +13,7 @@ export default function Home() {
           <TopHeader></TopHeader>
         </div>
 
-        <div className="mt-[6rem] w-full h-auto p-2 items-center">
+        <div className="mt-[3rem] w-full h-auto p-2 items-center">
           <div className="w-full h-auto p-2 flex items-center justify-center">
             <h1 className="text-[50px] font-bold underline">Features</h1>
           </div>
