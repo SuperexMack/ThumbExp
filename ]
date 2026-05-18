@@ -1,42 +1,14 @@
 "use client";
 import Navbar from "../Components/Navbar";
 import { CloudUpload } from "lucide-react";
-import { useRef, useState } from "react";
-import Image from "next/image";
+import { useRef } from "react";
 
 export default function () {
-  const videoRef = useRef<HTMLInputElement | null>(null);
-  const [imageArray, setImageArray] = useState([""]);
-  const [found, setFound] = useState(false);
-
-  interface myArr {
-    imageArray: string[];
-  }
+  const imageRef = useRef<HTMLInputElement | null>(null);
 
   const setImage = () => {
-    if (!videoRef.current) return;
-    videoRef.current?.click();
-  };
-
-  const sendVideo = async (file: File) => {
-    let formData = new FormData();
-    formData.append("file", file);
-    setFound(true);
-    let response = await fetch("http://localhost:9000/v1/convertImage", {
-      method: "POST",
-      body: formData,
-    });
-
-    if (response.status == 200) {
-      let arrValue: myArr = await response.json();
-      setImageArray(arrValue.imageArray);
-    }
-    setFound(false);
-  };
-
-  const getFile = (e: any) => {
-    const file = e.target.files[0];
-    if (file) sendVideo(file);
+    if (!imageRef.current) return;
+    imageRef.current?.click();
   };
 
   return (
@@ -63,12 +35,7 @@ export default function () {
             className="w-[700px] mt-[30px] flex flex-col items-center space-y-5 justify-center h-[400px] border-2 border-white"
           >
             <CloudUpload className="w-[60px] text-blue-500 h-[60px]"></CloudUpload>
-            <input
-              onChange={getFile}
-              className="hidden"
-              ref={videoRef}
-              type="file"
-            ></input>
+            <input className="hidden" ref={imageRef} type="file"></input>
             <h1 className="text-[30px] text-yellow-400 font-bold">
               Click here to upload video
             </h1>
@@ -86,24 +53,6 @@ export default function () {
               Generate Thumbnail
             </button>
           </div>
-        </div>
-
-        <div className="w-full flex-wrap space-y-5 h-auto p-2 flex justify-around space-x-5">
-          {found ? (
-            <div className="w-[50px] h-[50px] border-4 border-white rounded-full border-t-black animate-spin"></div>
-          ) : (
-            <>
-              {imageArray.map((image, index) => (
-                <Image
-                  key={index}
-                  src={image}
-                  alt="Image_coming_soon"
-                  width={300}
-                  height={300}
-                ></Image>
-              ))}
-            </>
-          )}
         </div>
       </div>
     </>

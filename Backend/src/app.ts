@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import dotenv from "dotenv";
 import multer from "multer";
 import { exec } from "child_process";
+import cors from "cors";
 import path from "path";
 //import { GoogleGenAI } from "@google/genai";
 import Replicate from "replicate";
@@ -26,53 +27,125 @@ if (replicate == undefined) {
   process.exit(1);
 }
 
-app.use(express.json());
+app.use(express.json({ limit: "500mb" }));
 
-//let src = multer.diskStorage({
-//destination: (req: Request, file, callback) => {
-//callback(null, "./videoFolder");
-//},
-//filename: (req: Request, file, callback) => {
-// callback(null, `input.mp4`);
-//},
-//});
+app.use(cors());
 
-//const upload = multer({ storage: src });
+const src = multer.diskStorage({
+  destination: (req: Request, file, callback) => {
+    const valueId = "abc";
+    const uploadPath = path.join(__dirname, `../${valueId}`);
+
+    // Create folder if it doesn't exist
+    if (!fs.existsSync(uploadPath)) {
+      fs.mkdirSync(uploadPath);
+    }
+
+    callback(null, uploadPath);
+  },
+
+  filename: (req: Request, file, callback) => {
+    callback(null, "input.mp4");
+  },
+});
+
+const upload = multer({ storage: src });
 
 app.get("/", (req: Request, res: Response) => {
   return res.json({ msg: "This is the code writing phase" });
 });
 
-app.post("/v1/convertImage", async (req: Request, res: Response) => {
-  console.log("Event triggered");
-  const inputPath = path.join(__dirname, "../videoFolder/mack.mp4");
-  const outputPath = path.join(__dirname, "../imageFolder/output_%05d.jpg");
+app.post(
+  "/v1/convertImage",
+  upload.single("file"),
+  async (req: Request, res: Response) => {
+    console.log("Event triggered");
 
-  const command = `ffmpeg -i "${inputPath}" -r 0.5 -f image2 "${outputPath}"`;
-  // Converting video to the image
-  try {
-    exec(command, (error, stderr) => {
-      if (error) {
-        console.log("Something went wrong while running the command " + error);
-        return res
-          .status(500)
-          .json({ msg: "Not able to convert to image " + error });
+    let imagePathName = Date.now().toString();
+
+    //let userId = req.body.id;
+    //
+    let userId = "abc";
+
+    fs.mkdir(imagePathName, (err) => {
+      if (err) {
+        console.log("Not able to create the image folder " + err);
+        return;
+      } else {
+        console.log("Path Created");
       }
-
-      if (stderr) {
-        console.log("FFmpeg stderr:", stderr);
-      }
-
-      console.log("Everthing went fine");
-      return res.json({ msg: "Image created :)" });
     });
 
-    console.log("Successfully created the image ");
-  } catch (error) {
-    console.log("Something went wrong in catch " + error);
-    return res.json({ msg: "Something went wrong while creating the action" });
-  }
-});
+    const inputPath = path.join(__dirname, `../${userId}/input.mp4`);
+    const outputPath = path.join(
+      __dirname,
+      `../${imagePathName}/output_%05d.png`,
+    );
+
+    const command = `ffmpeg -i "${inputPath}" -r 0.5 -f image2 "${outputPath}"`;
+    // Converting video to the image
+    try {
+      exec(command, (error, stderr) => {
+        if (error) {
+          console.log(
+            "Something went wrong while running the command " + error,
+          );
+          return res
+            .status(500)
+            .json({ msg: "Not able to convert to image " + error });
+        }
+
+        if (stderr) {
+          console.log("FFmpeg stderr:", stderr);
+        }
+
+        const allImages = path.join(__dirname, `../${imagePathName}`);
+
+        fs.readdir(allImages, (err, files) => {
+          if (err) {
+            console.log("Unable to get the images " + err);
+            return res
+              .status(404)
+              .json({ msg: "Unable to get the images " + err });
+          }
+
+          let myImagesArray = files.map((fileValue) => {
+            let realPath = path.join(allImages, fileValue);
+            let fileBufferValue = fs.readFileSync(realPath);
+
+            return `data:png;base64,${fileBufferValue.toString("base64")}`;
+          });
+
+          let videoFolderr = path.join(__dirname, "../abc");
+          let imageFolderr = path.join(__dirname, `../${imagePathName}`);
+
+          if (fs.existsSync(videoFolderr)) {
+            fs.rmSync(videoFolderr, { recursive: true, force: true });
+          }
+
+          if (fs.existsSync(imageFolderr)) {
+            fs.rmSync(imageFolderr, { recursive: true, force: true });
+          }
+
+          return res.status(200).json({
+            msg: "Successfully created images",
+            imageArray: myImagesArray,
+          });
+        });
+
+        //console.log("Everthing went fine");
+        //return res.json({ msg: "Image created :)" });
+      });
+
+      console.log("Successfully created the image ");
+    } catch (error) {
+      console.log("Something went wrong in catch " + error);
+      return res.json({
+        msg: "Something went wrong while creating the action",
+      });
+    }
+  },
+);
 
 app.post("/v1/getImage", async (req: Request, res: Response) => {
   const image = path.join(__dirname, "../imageFolder/ppp.png");
