@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Boldonse&family=Bungee&family=Denk+One&family=Jaro:opsz@6..72&family=Tapestry&family=Wellfleet&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -117,6 +118,12 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+body {
+  font-family: "Wellfleet";
+  font-weight: 400;
+  font-style: normal;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -128,3 +135,4 @@
     @apply font-sans;
   }
 }
+
