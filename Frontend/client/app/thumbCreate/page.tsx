@@ -11,6 +11,7 @@ export default function () {
   const [imageArray, setImageArray] = useState<string[]>([]);
   const [found, setFound] = useState(false);
   const [contextValue, setContextValue] = useState("");
+  const [showButton, setShowButton] = useState(true);
 
   const [imageValue, setImageValue] = useState("");
 
@@ -39,6 +40,7 @@ export default function () {
       let arrValue: myArr = await response.json();
       setImageArray(arrValue.imageArray);
     }
+
     setFound(false);
   };
 
@@ -50,6 +52,7 @@ export default function () {
   const generateThumbnail = async () => {
     setFound(true);
     toast.success("Now wait a moment");
+    setShowButton(false);
     let formData = new FormData();
     formData.append("file", imageValue);
     formData.append("context", contextValue);
@@ -64,11 +67,14 @@ export default function () {
       console.log("Value " + arrValue.imageArray);
       setImageArray(arrValue.imageArray);
     }
+    setContextValue("");
+    setShowButton(true);
     setFound(false);
   };
 
   const imageSetting = (image: string) => {
     setImageValue(image);
+    toast.success("Image is successfully selected for ThumbNail");
     console.log("Image added with name " + image);
   };
 
@@ -118,7 +124,7 @@ export default function () {
           <div className="flex w-full h-auto mt-[20px] p-2 flex items-center justify-center">
             <button
               onClick={generateThumbnail}
-              className="border-2 cursor-pointer border-purple-500 p-2 bg-black text-white font-bold border-white"
+              className={`${showButton}?"border-2 cursor-pointer border-purple-500 p-2 bg-black text-white font-bold border-white":"hidden"`}
             >
               Generate Thumbnail
             </button>
