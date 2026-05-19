@@ -1,4 +1,5 @@
 import { HeroVideoDialogDemoTopInBottomOut } from "./VideoSection";
+import Link from "next/link";
 
 export default function TopHeader() {
   return (
@@ -21,13 +22,17 @@ export default function TopHeader() {
 
         <div className="w-[50%] flex z-[30] items-center justify-center h-auto p-2">
           <div className="flex w-[50%] justify-around space-x-5">
-            <button className="bg-white text-black font-bold p-2 w-full">
-              Start Building
-            </button>
+            <Link href="/thumbCreate" className="w-full">
+              <button className="bg-white text-black font-bold p-2 w-full">
+                Start Building
+              </button>
+            </Link>
 
-            <button className="bg-black text-whote font-bold p-2 w-full">
-              Explore
-            </button>
+            <Link href={"/"} className="w-full">
+              <button className="bg-black text-whote font-bold p-2 w-full">
+                Explore
+              </button>
+            </Link>
           </div>
         </div>
 
