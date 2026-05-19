@@ -2,7 +2,7 @@
 import Navbar from "../Components/Navbar";
 import { CloudUpload } from "lucide-react";
 import { useRef, useState } from "react";
-
+import { ToastContainer, toast } from "react-toastify";
 import { Download } from "lucide-react";
 import Image from "next/image";
 
@@ -26,6 +26,7 @@ export default function () {
   };
 
   const sendVideo = async (file: File) => {
+    toast.success("Wait a moment");
     let formData = new FormData();
     formData.append("file", file);
     setFound(true);
@@ -48,6 +49,7 @@ export default function () {
 
   const generateThumbnail = async () => {
     setFound(true);
+    toast.success("Now wait a moment");
     let formData = new FormData();
     formData.append("file", imageValue);
     formData.append("context", contextValue);
@@ -150,6 +152,7 @@ export default function () {
             </>
           )}
         </div>
+        <ToastContainer></ToastContainer>
       </div>
     </>
   );
