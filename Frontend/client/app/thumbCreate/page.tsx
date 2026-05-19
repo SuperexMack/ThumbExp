@@ -2,6 +2,8 @@
 import Navbar from "../Components/Navbar";
 import { CloudUpload } from "lucide-react";
 import { useRef, useState } from "react";
+
+import { Download } from "lucide-react";
 import Image from "next/image";
 
 export default function () {
@@ -127,14 +129,23 @@ export default function () {
           ) : (
             <>
               {imageArray.map((image, index) => (
-                <Image
-                  onClick={() => imageSetting(image)}
-                  key={index}
-                  src={image}
-                  alt="Image_coming_soon"
-                  width={300}
-                  height={300}
-                ></Image>
+                <div className="flex items-center justify-center flex-col space-y-4">
+                  <Image
+                    onClick={() => imageSetting(image)}
+                    key={index}
+                    src={image}
+                    className="rounded-2xl border-2 border-white"
+                    alt="Image_coming_soon"
+                    width={500}
+                    height={500}
+                  ></Image>
+
+                  <a download="thumbnailphoto.png" href={image}>
+                    <span className="h-[70px] w-[70px] text-blue-500">
+                      <Download></Download>
+                    </span>
+                  </a>
+                </div>
               ))}
             </>
           )}
