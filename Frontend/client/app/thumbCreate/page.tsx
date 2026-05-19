@@ -6,8 +6,13 @@ import Image from "next/image";
 
 export default function () {
   const videoRef = useRef<HTMLInputElement | null>(null);
-  const [imageArray, setImageArray] = useState([""]);
+  const [imageArray, setImageArray] = useState<string[]>([]);
   const [found, setFound] = useState(false);
+  const [contextValue, setContextValue] = useState("");
+
+  const [imageValue, setImageValue] = useState("");
+
+  const [thumbNail, setThumbNail] = useState("");
 
   interface myArr {
     imageArray: string[];
@@ -37,6 +42,30 @@ export default function () {
   const getFile = (e: any) => {
     const file = e.target.files[0];
     if (file) sendVideo(file);
+  };
+
+  const generateThumbnail = async () => {
+    setFound(true);
+    let formData = new FormData();
+    formData.append("file", imageValue);
+    formData.append("context", contextValue);
+    let response = await fetch("http://localhost:9000/v1/getImage", {
+      method: "POST",
+      body: formData,
+    });
+
+    if (response.status == 200) {
+      console.log("done");
+      let arrValue: myArr = await response.json();
+      console.log("Value " + arrValue.imageArray);
+      setImageArray(arrValue.imageArray);
+    }
+    setFound(false);
+  };
+
+  const imageSetting = (image: string) => {
+    setImageValue(image);
+    console.log("Image added with name " + image);
   };
 
   return (
@@ -76,13 +105,17 @@ export default function () {
 
           <div className="flex w-full h-auto mt-[20px] p-2 flex items-center justify-center">
             <input
+              onChange={(e) => setContextValue(e.target.value)}
               className="p-2 w-[40%] border-2 border-white"
               placeholder="Enter Context"
             ></input>
           </div>
 
           <div className="flex w-full h-auto mt-[20px] p-2 flex items-center justify-center">
-            <button className="border-2 cursor-pointer border-purple-500 p-2 bg-black text-white font-bold border-white">
+            <button
+              onClick={generateThumbnail}
+              className="border-2 cursor-pointer border-purple-500 p-2 bg-black text-white font-bold border-white"
+            >
               Generate Thumbnail
             </button>
           </div>
@@ -95,6 +128,7 @@ export default function () {
             <>
               {imageArray.map((image, index) => (
                 <Image
+                  onClick={() => imageSetting(image)}
                   key={index}
                   src={image}
                   alt="Image_coming_soon"

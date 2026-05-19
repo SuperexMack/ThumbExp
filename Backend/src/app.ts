@@ -147,15 +147,39 @@ app.post(
   },
 );
 
-app.post("/v1/getImage", async (req: Request, res: Response) => {
-  const image = path.join(__dirname, "../imageFolder/ppp.png");
+let srcnew = multer.diskStorage({
+  destination: (req: Request, file, callback) => {
+    let fileName = "../abc";
+    let newFileCreation = path.join(__dirname, fileName);
+    if (!fs.existsSync(newFileCreation)) {
+      fs.mkdirSync(newFileCreation);
+    }
 
-  const myImageBuffer = fs.readFileSync(image);
+    callback(null, newFileCreation);
+  },
 
-  const context = "AI is going to change everything";
+  filename: (req: Request, file, callback) => {
+    callback(null, "input.png");
+  },
+});
 
-  const input = {
-    prompt: `You are an expert YouTube thumbnail designer with world-class skills in visual storytelling, composition, and attention-grabbing design.
+let myUpload = multer({ storage: srcnew });
+
+app.post(
+  "/v1/getImage",
+  multer().none(),
+  async (req: Request, res: Response) => {
+    const context = req.body.context;
+    let base64DataUser = req.body.file;
+    let Base64Data = base64DataUser.split(";base64,").pop();
+    let bufferImage = Buffer.from(Base64Data, "base64");
+
+    const myImageBuffer = bufferImage;
+
+    console.log("Got the image");
+
+    const input = {
+      prompt: `You are an expert YouTube thumbnail designer with world-class skills in visual storytelling, composition, and attention-grabbing design.
 
 Your task is to transform the provided image into a highly professional, click-worthy YouTube thumbnail.
 
@@ -192,34 +216,45 @@ OUTPUT REQUIREMENTS:
 - Designed to immediately grab attention and generate clicks.
 
 Your objective is to create a thumbnail that looks like it was designed by a top-tier professional designer and is capable of competing with the best thumbnails on YouTube.`,
-    resolution: "1 MP",
-    aspect_ratio: "16:9",
-    input_images: [myImageBuffer],
-    output_format: "png",
-    output_quality: 80,
-    safety_tolerance: 2,
-  };
+      resolution: "1 MP",
+      aspect_ratio: "16:9",
+      input_images: [myImageBuffer],
+      output_format: "png",
+      output_quality: 80,
+      safety_tolerance: 2,
+    };
 
-  const output = await replicate.run("black-forest-labs/flux-2-pro", {
-    input,
-  });
+    const output = await replicate.run("black-forest-labs/flux-2-pro", {
+      input,
+    });
 
-  console.log("The info is ", output);
+    console.log("The info is ", output);
 
-  const imageUrl = Array.isArray(output) ? String(output[0]) : String(output);
+    const imageUrl = Array.isArray(output) ? String(output[0]) : String(output);
 
-  const fetchingImage = await fetch(imageUrl);
+    const fetchingImage = await fetch(imageUrl);
 
-  const arrayBuffer = await fetchingImage.arrayBuffer();
+    const arrayBuffer = await fetchingImage.arrayBuffer();
 
-  const buffer = Buffer.from(arrayBuffer);
+    const buffer = Buffer.from(arrayBuffer);
 
-  const imagePath = path.join(__dirname, "../imageFolder/outputp.png");
+    // const imagePath = path.join(__dirname, "../abc/outputp.png");
 
-  fs.writeFileSync(imagePath, buffer);
+    //fs.writeFileSync(imagePath, buffer);
+    //
 
-  return res.json({ msg: "Done with the task" });
-});
+    let fileSending = `data:png;base64,${buffer.toString("base64")}`;
+    let myArr = [];
+
+    myArr.push(fileSending);
+
+    console.log("Thumbnail sent huuuh");
+
+    return res
+      .status(200)
+      .json({ msg: "Done with the task", imageArray: myArr });
+  },
+);
 
 app.listen(PORT, () => {
   console.log(`Server is ruyunning on the port number ${PORT}`);
