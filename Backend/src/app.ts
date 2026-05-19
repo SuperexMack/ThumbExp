@@ -184,8 +184,8 @@ app.post(
 Your task is to transform the provided image into a highly professional, click-worthy YouTube thumbnail.
 
 IMPORTANT RULES:
-1. Use ONLY the provided image as the source material.
-2. Do NOT add any new people, objects, or external images.
+1. Use the provided image as the source material.
+2. Do NOT add any new people , and the person should be same as in given image do no change his image keep same as given iamge yeah but you can use objects, or external images.
 3. You may crop, zoom, enhance, blur the background, adjust colors, increase sharpness, add glow effects, and apply professional design techniques.
 4. Preserve the identity and key subject from the original image.
 5. The final thumbnail must look polished, dramatic, and optimized to maximize click-through rate (CTR).

@@ -13,6 +13,8 @@ export default function () {
   const [contextValue, setContextValue] = useState("");
   const [showButton, setShowButton] = useState(true);
 
+  const [typing, setTyping] = useState(false);
+
   const [imageValue, setImageValue] = useState("");
 
   const [thumbNail, setThumbNail] = useState("");
@@ -64,7 +66,7 @@ export default function () {
     if (response.status == 200) {
       console.log("done");
       let arrValue: myArr = await response.json();
-      console.log("Value " + arrValue.imageArray);
+      // console.log("Value " + arrValue.imageArray);
       setImageArray(arrValue.imageArray);
     }
     setContextValue("");
@@ -115,7 +117,13 @@ export default function () {
 
           <div className="flex w-full h-auto mt-[20px] p-2 flex items-center justify-center">
             <input
-              onChange={(e) => setContextValue(e.target.value)}
+              onChange={(e) => {
+                setTyping(true);
+                setContextValue(e.target.value);
+                setTimeout(() => {
+                  setTyping(false);
+                }, 2000);
+              }}
               className="p-2 w-[40%] border-2 border-white"
               placeholder="Enter Context"
             ></input>
@@ -124,7 +132,11 @@ export default function () {
           <div className="flex w-full h-auto mt-[20px] p-2 flex items-center justify-center">
             <button
               onClick={generateThumbnail}
-              className={`${showButton}?"border-2 cursor-pointer border-purple-500 p-2 bg-black text-white font-bold border-white":"hidden"`}
+              className={
+                showButton
+                  ? "border-2 cursor-pointer border-purple-500 p-2 bg-black text-white font-bold border-white"
+                  : "hidden"
+              }
             >
               Generate Thumbnail
             </button>
@@ -136,25 +148,26 @@ export default function () {
             <div className="w-[50px] h-[50px] border-4 border-white rounded-full border-t-black animate-spin"></div>
           ) : (
             <>
-              {imageArray.map((image, index) => (
-                <div className="flex items-center justify-center flex-col space-y-4">
-                  <Image
-                    onClick={() => imageSetting(image)}
-                    key={index}
-                    src={image}
-                    className="rounded-2xl border-2 border-white"
-                    alt="Image_coming_soon"
-                    width={500}
-                    height={500}
-                  ></Image>
+              {!typing &&
+                imageArray.map((image, index) => (
+                  <div className="flex items-center justify-center flex-col space-y-4">
+                    <Image
+                      onClick={() => imageSetting(image)}
+                      key={index}
+                      src={image}
+                      className="rounded-2xl border-2 border-white"
+                      alt="Image_coming_soon"
+                      width={500}
+                      height={500}
+                    ></Image>
 
-                  <a download="thumbnailphoto.png" href={image}>
-                    <span className="h-[70px] w-[70px] text-blue-500">
-                      <Download></Download>
-                    </span>
-                  </a>
-                </div>
-              ))}
+                    <a download="thumbnailphoto.png" href={image}>
+                      <span className="h-[70px] w-[70px] text-blue-500">
+                        <Download></Download>
+                      </span>
+                    </a>
+                  </div>
+                ))}
             </>
           )}
         </div>
