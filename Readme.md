@@ -2,6 +2,8 @@
 
 ThumbExp helps you generate better YouTube and social media thumbnails. Upload your video, get AI-powered thumbnail suggestions based on the actual content, pick one, add context, and download a ready-to-use image no design tools required.
 
+https://github.com/user-attachments/assets/fda1b8b2-ad0f-4511-ae41-9bfd8338ada9
+
 > This project is currently open source. That may change in the future.
 
 ---
@@ -80,8 +82,6 @@ npm run dev
 Visit [http://localhost:3000](http://localhost:3000)
 
 ---
-
-https://github.com/user-attachments/assets/fda1b8b2-ad0f-4511-ae41-9bfd8338ada9
 
 ## Installing FFmpeg
 
