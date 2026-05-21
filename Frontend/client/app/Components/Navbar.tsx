@@ -73,7 +73,7 @@ export default function Navbar() {
             <Link href={"/"}>How it works</Link>
             <Link href={"/"}>Contact us</Link>
             <Link href={"https://github.com/SuperexMack"}>
-              <Github></Github>
+              <span className="font-bold text-white">Github</span>
             </Link>
           </div>
         </>

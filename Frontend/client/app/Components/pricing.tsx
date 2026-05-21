@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  CardBody,
-  CardContainer,
-  CardItem,
-} from "../../components/ui/3d-card.tsx";
+import { CardBody, CardContainer, CardItem } from "../../components/ui/3d-card";
 
 export default function pricing() {
   return (
