@@ -49,8 +49,7 @@ const dummyContent = [
       </>
     ),
     badge: "Starting Step",
-    image:
-      "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=3540&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    image: "/first.png",
   },
   {
     title: "Second step is quite easy",
@@ -59,7 +58,7 @@ const dummyContent = [
         <p>
           In the second step you don't need to do anything hard after selecting
           the template go to the input box and write the context there (what is
-          the context of your thumbnail or video) and then click the "Get
+          the context of your thumbnail or video) and then click the "Generate
           Thumbnail" button and again wait for a moment (it will take around
           11-20 seconds) and boom after some moment you will get a cool
           thumbnail . download that and use in your video
@@ -67,8 +66,7 @@ const dummyContent = [
       </>
     ),
     badge: "Second Step",
-    image:
-      "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&q=80&w=3540&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    image: "/second.png",
   },
   {
     title: "What's the cost",
@@ -84,7 +82,6 @@ const dummyContent = [
       </>
     ),
     badge: "$ spend",
-    image:
-      "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&q=80&w=3506&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    image: "/third.png",
   },
 ];
