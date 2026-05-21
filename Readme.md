@@ -2,7 +2,7 @@
 
 ThumbExp helps you generate better YouTube and social media thumbnails. Upload your video, get AI-powered thumbnail suggestions based on the actual content, pick one, add context, and download a ready-to-use image no design tools required.
 
-https://github.com/user-attachments/assets/c741874c-f216-4d92-b2e2-2a11b453836a
+https://github.com/user-attachments/assets/75c36160-3545-4d83-9470-710e8a0c83a7
 
 > This project is currently open source. That may change in the future.
 
