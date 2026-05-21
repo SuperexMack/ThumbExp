@@ -5,7 +5,7 @@ export default function TopHeader() {
   return (
     <>
       <div className="w-full mt-[12rem] h-auto flex flex-col space-y-5 items-center">
-        <div className="bg-purple-300 w-[800px] h-[800px] rounded-full absolute z-[10] left-[25%] top-[10%] blur-3xl opacity-30"></div>
+        <div className="bg-purple-300 overflow-x-hidden w-[800px] h-[800px] rounded-full absolute z-[10] left-[25%] top-[10%] blur-3xl opacity-30"></div>
 
         <div className="md:w-[60%] w-full h-auto p-2 z-20">
           <h1 className="md:text-[50px] text-[30px] font-bold text-center">
